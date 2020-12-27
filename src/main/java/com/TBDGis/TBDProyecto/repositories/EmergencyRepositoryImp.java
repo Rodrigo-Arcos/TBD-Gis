@@ -63,13 +63,17 @@ public class EmergencyRepositoryImp implements EmergencyRepository{
     public Emergency createEmergency(Emergency emergencia){
         int id = this.biggestIdEme() + 1;
         try(Connection conn = sql2o.open()){
-            conn.createQuery("INSERT INTO emergencia (id,nombre,id_institucion,finicio,ffin,descrip) values (:id,:emergenciaNombre,:id_institucion,:finicio,:ffin,:descrip)", true)
+            conn.createQuery("INSERT INTO emergencia (id,nombre,id_institucion,finicio,ffin,descrip,invisible,longitude,latitude,location) values (:id,:emergenciaNombre,:id_institucion,:finicio,:ffin,:descrip,:invisible,:longitude,:latitude,:location)", true)
                     .addParameter("id", id)
                     .addParameter("emergenciaNombre", emergencia.getNombre())
                     .addParameter("id_institucion", emergencia.getId_institucion())
                     .addParameter("finicio", emergencia.getFinicio())
                     .addParameter("ffin", emergencia.getFfin())
                     .addParameter("descrip", emergencia.getDescrip())
+                    .addParameter("invisible", emergencia.getInvisible())
+                    .addParameter("longitude", emergencia.getLongitude())
+                    .addParameter("latitude", emergencia.getLatitude())
+                    .addParameter("location", emergencia.getLocation())
                     .executeUpdate().getKey();
             emergencia.setId(id);
             return emergencia;
