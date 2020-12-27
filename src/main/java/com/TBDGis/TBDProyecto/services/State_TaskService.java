@@ -2,7 +2,7 @@ package com.TBDGis.TBDProyecto.services;
 
 
 import com.TBDGis.TBDProyecto.models.State_Task;
-import com.TBDGis.TBDProyecto.repositories.State_taskRepository;
+import com.TBDGis.TBDProyecto.repositories.State_TaskRepository;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -11,9 +11,9 @@ import java.util.List;
 @RestController
 @RequestMapping(value = "estado_tareas")
 
-public class State_taskService {
-    private final State_taskRepository state_taskRepository;
-    State_taskService(State_taskRepository state_taskRepository){
+public class State_TaskService {
+    private final State_TaskRepository state_taskRepository;
+    State_TaskService(State_TaskRepository state_taskRepository){
         this.state_taskRepository = state_taskRepository;
     }
 

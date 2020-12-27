@@ -9,7 +9,7 @@ import org.sql2o.Sql2o;
 import java.util.List;
 
 @Repository
-public class State_taskRepositoryImp implements State_taskRepository{
+public class State_TaskRepositoryImp implements State_TaskRepository {
     @Autowired
     private Sql2o sql2o;
 

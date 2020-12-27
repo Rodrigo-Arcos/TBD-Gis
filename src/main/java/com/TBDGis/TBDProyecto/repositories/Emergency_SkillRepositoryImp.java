@@ -10,7 +10,7 @@ import org.sql2o.Sql2o;
 import java.util.List;
 
 @Repository
-public class Eme_skillRepositoryImp implements Eme_SkillRepository {
+public class Emergency_SkillRepositoryImp implements Emergency_SkillRepository {
     @Autowired
     private Sql2o sql2o;
 

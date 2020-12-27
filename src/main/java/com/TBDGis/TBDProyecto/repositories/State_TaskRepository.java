@@ -4,7 +4,7 @@ import com.TBDGis.TBDProyecto.models.State_Task;
 
 import java.util.List;
 
-public interface State_taskRepository {
+public interface State_TaskRepository {
     public int countState_tasks();
     public List<State_Task> getAllState_tasks();
     public State_Task getState_taskById(Integer id);

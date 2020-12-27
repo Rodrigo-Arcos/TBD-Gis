@@ -12,9 +12,9 @@ import java.util.List;
 @CrossOrigin
 @RestController
 @RequestMapping(value = "vol_skill")
-public class Vol_skillService {
+public class Volunteer_SkillService {
     private final Volunteer_SkillRepository vsRepo;
-    Vol_skillService(Volunteer_SkillRepository vsRepo){
+    Volunteer_SkillService(Volunteer_SkillRepository vsRepo){
         this.vsRepo = vsRepo;
     }
 

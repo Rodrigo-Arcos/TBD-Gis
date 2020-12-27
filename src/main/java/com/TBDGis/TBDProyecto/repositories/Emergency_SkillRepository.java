@@ -3,7 +3,7 @@ import com.TBDGis.TBDProyecto.models.Emergency_Skill;
 
 import java.util.List;
 
-public interface Eme_SkillRepository {
+public interface Emergency_SkillRepository {
     public int countEme_habs();
     public List<Emergency_Skill> getAllEme_habs();
     public Emergency_Skill getEme_SkillById(Integer id);

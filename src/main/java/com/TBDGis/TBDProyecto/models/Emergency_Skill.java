@@ -1,5 +1,6 @@
 package com.TBDGis.TBDProyecto.models;
 
+
 public class Emergency_Skill {
 
     // Attributes
@@ -9,6 +10,7 @@ public class Emergency_Skill {
     private Integer invisible;
 
     // Getters and setters
+
     public Integer getId() {
         return id;
     }
@@ -40,6 +42,7 @@ public class Emergency_Skill {
     public void setInvisible(Integer invisible) {
         this.invisible = invisible;
     }
+
 
     // Additional methods and content
 

@@ -9,10 +9,10 @@ import java.util.List;
 @CrossOrigin
 @RestController
 @RequestMapping(value = "task_hab")
-public class Task_skillService {
+public class Task_SkillService {
 
     private final Task_SkillRepository task_skillRepository;
-    Task_skillService(Task_SkillRepository task_skillRepository){
+    Task_SkillService(Task_SkillRepository task_skillRepository){
         this.task_skillRepository = task_skillRepository;
     }
 
