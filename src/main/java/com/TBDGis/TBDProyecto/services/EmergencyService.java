@@ -1,9 +1,8 @@
 package com.TBDGis.TBDProyecto.services;
-
+import org.springframework.web.bind.annotation.*;
 
 import com.TBDGis.TBDProyecto.models.Emergency;
 import com.TBDGis.TBDProyecto.repositories.EmergencyRepository;
-import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 

@@ -1,13 +1,17 @@
 package com.TBDGis.TBDProyecto.services;
 import org.springframework.web.bind.annotation.*;
 
+import com.TBDGis.TBDProyecto.models.Volunteer;
+import com.TBDGis.TBDProyecto.repositories.VolunteerRepository;
+
 import java.util.List;
 
 @CrossOrigin
 @RestController
 @RequestMapping(value = "volunteer")
 public class VolunteerService {
-    private final VolunteerRepository voluntarioRepository;
+
+    private final VolunteerRepository volunteerRepository;
     VolunteerService(VolunteerRepository volunteerRepository){
         this.volunteerRepository = volunteerRepository;
     }

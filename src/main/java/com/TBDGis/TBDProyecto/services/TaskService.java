@@ -1,8 +1,10 @@
 package com.TBDGis.TBDProyecto.services;
 
+import com.TBDGis.TBDProyecto.models.Task;
+import com.TBDGis.TBDProyecto.repositories.TaskRepository;
+
 import org.springframework.web.bind.annotation.*;
 
-import java.sql.Date;
 import java.util.List;
 
 @CrossOrigin
