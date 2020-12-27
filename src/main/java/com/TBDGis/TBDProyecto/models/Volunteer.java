@@ -1,19 +1,20 @@
 package com.TBDGis.TBDProyecto.models;
 
 import org.postgis.PGgeometry;
+import org.json.*;
 
 import java.sql.Date;
 
-public class Emergency {
+public class Volunteer {
 
     // Attributes
     private Integer id;
-    private Integer id_institucion;
     private String nombre;
-    private Date finicio;
-    private Date ffin;
-    private String descrip;
-    private Integer invisible;
+    private String apellido;
+    private String email;
+    private String sexo;
+    private JSONObject dimensions;
+    private JSONObject requeriments;
     private double longitude;
     private double latitude;
     private PGgeometry location;
@@ -27,14 +28,6 @@ public class Emergency {
         this.id = id;
     }
 
-    public Integer getId_institucion() {
-        return id_institucion;
-    }
-
-    public void setId_institucion(Integer id_institucion) {
-        this.id_institucion = id_institucion;
-    }
-
     public String getNombre() {
         return nombre;
     }
@@ -43,36 +36,44 @@ public class Emergency {
         this.nombre = nombre;
     }
 
-    public Date getFinicio() {
-        return finicio;
+    public String getApellido() {
+        return apellido;
     }
 
-    public void setFinicio(Date finicio) {
-        this.finicio = finicio;
+    public void setApellido(String apellido) {
+        this.apellido = apellido;
     }
 
-    public Date getFfin() {
-        return ffin;
+    public String getEmail() {
+        return email;
     }
 
-    public void setFfin(Date ffin) {
-        this.ffin = ffin;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
-    public String getDescrip() {
-        return descrip;
+    public String getSexo() {
+        return sexo;
     }
 
-    public void setDescrip(String descrip) {
-        this.descrip = descrip;
+    public void setSexo(String sexo) {
+        this.sexo = sexo;
     }
 
-    public Integer getInvisible() {
-        return invisible;
+    public JSONObject getDimensions() {
+        return dimensions;
     }
 
-    public void setInvisible(Integer invisible) {
-        this.invisible = invisible;
+    public void setDimensions(JSONObject dimensions) {
+        this.dimensions = dimensions;
+    }
+
+    public JSONObject getRequeriments() {
+        return requeriments;
+    }
+
+    public void setRequeriments(JSONObject requeriments) {
+        this.requeriments = requeriments;
     }
 
     public double getLongitude() {
