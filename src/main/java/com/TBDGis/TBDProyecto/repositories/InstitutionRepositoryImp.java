@@ -9,6 +9,7 @@ import org.sql2o.Sql2o;
 
 import java.util.List;
 
+@Repository
 public class InstitutionRepositoryImp implements InstitutionRepository{
     @Autowired
     private Sql2o sql2o;

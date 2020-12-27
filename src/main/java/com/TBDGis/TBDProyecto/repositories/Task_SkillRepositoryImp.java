@@ -2,12 +2,14 @@ package com.TBDGis.TBDProyecto.repositories;
 
 import com.TBDGis.TBDProyecto.models.Task_Skill;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 import org.sql2o.Connection;
 import org.sql2o.Query;
 import org.sql2o.Sql2o;
 
 import java.util.List;
 
+@Repository
 public class Task_SkillRepositoryImp implements Task_SkillRepository {
     @Autowired
     private Sql2o sql2o;
