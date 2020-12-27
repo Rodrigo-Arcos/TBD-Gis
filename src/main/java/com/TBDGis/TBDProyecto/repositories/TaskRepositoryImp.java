@@ -20,10 +20,8 @@ public class TaskRepositoryImp implements TaskRepository{
     @Override
     public List<Task> getAllTasks(){
         try(Connection conn = sql2o.open()){
-            System.out.println("try");
             return conn.createQuery("SELECT * FROM tarea").executeAndFetch(Task.class);
         }catch(Exception e){
-            System.out.println("catch");
             System.out.println(e.getMessage());
             return null;
         }
