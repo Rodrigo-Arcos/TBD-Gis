@@ -1,6 +1,8 @@
 package com.TBDGis.TBDProyecto.services;
 
 
+import com.TBDGis.TBDProyecto.models.State_Task;
+import com.TBDGis.TBDProyecto.repositories.State_taskRepository;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -17,7 +19,7 @@ public class State_taskService {
 
     @RequestMapping(value = "/getAll", method = RequestMethod.GET)
     @ResponseBody
-    public List<State_task> getAllState_tasks() {
+    public List<State_Task> getAllState_tasks() {
         return state_taskRepository.getAllState_tasks();
     }
 
@@ -30,26 +32,26 @@ public class State_taskService {
 
     @RequestMapping(value = "/getById/{id}", method = RequestMethod.GET)
     @ResponseBody
-    public State_task getState_taskById(@PathVariable(value = "id") Integer id){
+    public State_Task getState_taskById(@PathVariable(value = "id") Integer id){
         return this.state_taskRepository.getState_taskById(id);
     }
 
     @PostMapping("/createState_task")
     @ResponseBody
-    public State_task createState_task(@RequestBody State_task state_task){
-        State_task result = state_taskRepository.createState_task(state_task);
+    public State_Task createState_task(@RequestBody State_Task state_task){
+        State_Task result = state_taskRepository.createState_task(state_task);
         return result;
     }
 
     @PutMapping("/update/{id}")
     @ResponseBody
-    public void updateState_task(@PathVariable(value = "id") int id, State_task state_task) {
+    public void updateState_task(@PathVariable(value = "id") int id, State_Task state_task) {
         state_taskRepository.updateState_task(id, state_task);
     }
 
     @PutMapping("/delete/{id}")
     @ResponseBody
-    public void deleteState_task(@PathVariable(value = "id") int id, State_task state_task){
+    public void deleteState_task(@PathVariable(value = "id") int id, State_Task state_task){
         state_taskRepository.deleteState_task(id, state_task);
     }
 }

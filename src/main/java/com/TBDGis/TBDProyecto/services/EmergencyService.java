@@ -1,7 +1,11 @@
 package com.TBDGis.TBDProyecto.services;
 
 
+import com.TBDGis.TBDProyecto.models.Emergency;
+import com.TBDGis.TBDProyecto.repositories.EmergencyRepository;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @CrossOrigin
 @RestController
@@ -22,14 +26,14 @@ public class EmergencyService {
     @RequestMapping(value = "/count", method = RequestMethod.GET)
     @ResponseBody
     public String countEmergencies(){
-        int total = EmergencyRepository.countEmergencies();
+        int total = emergencyRepository.countEmergency();
         return String.format("Tienes %s emergencias!!", total);
     }
 
     @RequestMapping(value = "/getById/{id}", method = RequestMethod.GET)
     @ResponseBody
     public Emergency getEmergencyById(@PathVariable(value = "id") Integer id){
-        return this.emergencieRepository.getEmergencyById(id);
+        return this.emergencyRepository.getEmergencyById(id);
     }
 
     @PostMapping("/createEmergency")

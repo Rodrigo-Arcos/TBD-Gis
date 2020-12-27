@@ -1,5 +1,7 @@
 package com.TBDGis.TBDProyecto.services;
 
+import com.TBDGis.TBDProyecto.models.Ranking;
+import com.TBDGis.TBDProyecto.repositories.RankingRepository;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;

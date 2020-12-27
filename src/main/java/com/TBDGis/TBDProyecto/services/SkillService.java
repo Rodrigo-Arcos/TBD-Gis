@@ -1,4 +1,6 @@
 package com.TBDGis.TBDProyecto.services;
+import com.TBDGis.TBDProyecto.models.Skill;
+import com.TBDGis.TBDProyecto.repositories.SkillRepository;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -46,6 +48,6 @@ public class SkillService {
     @PutMapping("/delete/{id}")
     @ResponseBody
     public void deleteSkill(@PathVariable(value = "id") int id, Skill skill){
-        skillRepository.updateSkill(id, skill);
+        skillRepository.deleteSkill(id, skill);
     }
 }
