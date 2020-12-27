@@ -147,7 +147,7 @@ public class EmergencyRepositoryImp implements EmergencyRepository{
         double rad = radius/1000;
         try(Connection conn = sql2o.open()){
 
-            String query = "SELECT v.id, v.nombre, v.sexo, v.email, v.dimensions "
+            String query = "SELECT v.id, v.nombre, v.apellido, v.sexo, v.email, v.longitude, v.latitude "
                          + "FROM voluntario AS v, emergencia "
                          + "WHERE emergencia.id = :id_emergency AND st_distance(ST_GeomFromText(:point, 4326), v.location::geography) <= :rad;";
             String point = "POINT("+actualEmergency.getLongitude()+" "+actualEmergency.getLatitude()+")";
