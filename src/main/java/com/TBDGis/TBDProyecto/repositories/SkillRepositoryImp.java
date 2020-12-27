@@ -10,6 +10,7 @@ import org.sql2o.Sql2o;
 
 import java.util.List;
 
+@Repository
 public class SkillRepositoryImp implements SkillRepository{
     @Autowired
     private Sql2o sql2o;

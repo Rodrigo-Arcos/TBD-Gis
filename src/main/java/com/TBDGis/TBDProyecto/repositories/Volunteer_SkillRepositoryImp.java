@@ -2,8 +2,8 @@ package com.TBDGis.TBDProyecto.repositories;
 
 import com.TBDGis.TBDProyecto.models.Volunteer_Skill;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Repository;
 
+import org.springframework.stereotype.Repository;
 import org.sql2o.Connection;
 import org.sql2o.Query;
 import org.sql2o.Sql2o;
