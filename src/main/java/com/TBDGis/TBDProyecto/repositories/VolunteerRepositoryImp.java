@@ -1,5 +1,6 @@
 package com.TBDGis.TBDProyecto.repositories;
 
+import com.TBDGis.TBDProyecto.models.Emergency;
 import com.TBDGis.TBDProyecto.models.Volunteer;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -92,4 +93,24 @@ public class VolunteerRepositoryImp implements VolunteerRepository{
             System.out.println(e.getMessage());
         }
     }*/
+    /*@Override
+    public Emergency getEmergencyById(Integer id){
+        try(Connection conn = sql2o.open()){
+            return conn.createQuery("SELECT * FROM emergencia WHERE id = :v_id")
+                    .addParameter("v_id", id)
+                    .executeAndFetchFirst(Emergency.class);
+        }catch (Exception e){
+            System.out.println(e.getMessage());
+            return null;
+        }
+    }*/
+
+    /*
+    dist = distance(emergecia, voluntarios)
+    dist = dist*111
+        si dist <= radio
+            sacar id y nombre
+        end
+    end
+    */
 }

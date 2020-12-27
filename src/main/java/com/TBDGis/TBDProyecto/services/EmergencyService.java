@@ -1,4 +1,5 @@
 package com.TBDGis.TBDProyecto.services;
+import com.TBDGis.TBDProyecto.models.Volunteer;
 import org.springframework.web.bind.annotation.*;
 
 import com.TBDGis.TBDProyecto.models.Emergency;
@@ -52,5 +53,12 @@ public class EmergencyService {
     @ResponseBody
     public void deleteEmergency(@PathVariable(value = "id") int id, Emergency emergency){
         emergencyRepository.deleteEmergency(id, emergency);
+    }
+    @GetMapping("/getVolunteerByRadius/{id}")
+    @ResponseBody
+    public List<Volunteer> getVolunteersByRadius(@PathVariable(value = "id") int id, double radius){
+        List<Volunteer> volunteers;
+        volunteers = emergencyRepository.getVolunteersByIdEmergency(id, radius);
+        return volunteers;
     }
 }

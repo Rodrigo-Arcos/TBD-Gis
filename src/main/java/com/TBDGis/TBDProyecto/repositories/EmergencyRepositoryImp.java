@@ -1,6 +1,7 @@
 package com.TBDGis.TBDProyecto.repositories;
 
 import com.TBDGis.TBDProyecto.models.Emergency;
+import com.TBDGis.TBDProyecto.models.Volunteer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.sql2o.Connection;
@@ -138,6 +139,27 @@ public class EmergencyRepositoryImp implements EmergencyRepository{
             System.out.println("La emergencia se elimino correctamente.");
         }catch(Exception e){
             System.out.println(e.getMessage());
+        }
+    }
+    @Override
+    public List<Volunteer> getVolunteersByIdEmergency(Integer id_emergency, double radius){
+        Emergency actualEmergency = getEmergencyById(id_emergency);
+        double rad = radius/1000;
+        try(Connection conn = sql2o.open()){
+
+            String query = "SELECT v.id, v.nombre, v.sexo, v.email, v.dimensions "
+                         + "FROM voluntario AS v, emergencia "
+                         + "WHERE emergencia.id = :id_emergency AND st_distance(ST_GeomFromText(:point, 4326), v.location::geography) <= :rad;";
+            String point = "POINT("+actualEmergency.getLongitude()+" "+actualEmergency.getLatitude()+")";
+            return conn.createQuery(query)
+                    .addParameter("id_emergency", id_emergency)
+                    .addParameter("point", point)
+                    .addParameter("rad", rad)
+                    .executeAndFetch(Volunteer.class);
+        }
+        catch(Exception e){
+            System.out.println(e.getMessage());
+            return null;
         }
     }
 }
