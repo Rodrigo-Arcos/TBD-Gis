@@ -9,6 +9,7 @@ import java.util.List;
 
 @CrossOrigin
 @RestController
+@RequestMapping(value = "task")
 public class TaskService {
     private final TaskRepository taskRepo;
     TaskService(TaskRepository taskRepo){

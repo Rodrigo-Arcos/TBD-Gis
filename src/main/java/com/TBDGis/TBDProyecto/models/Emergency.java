@@ -8,11 +8,11 @@ public class Emergency {
 
     // Attributes
     private Integer id;
-    private Integer id_institucion;
     private String nombre;
+    private String descrip;
     private Date finicio;
     private Date ffin;
-    private String descrip;
+    private Integer id_institucion;
     private Integer invisible;
     private double longitude;
     private double latitude;
