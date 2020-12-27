@@ -1,5 +1,7 @@
 package com.TBDGis.TBDProyecto.services;
 
+import com.TBDGis.TBDProyecto.models.Emergency_Skill;
+import com.TBDGis.TBDProyecto.repositories.Eme_SkillRepository;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -8,14 +10,14 @@ import java.util.List;
 @RestController
 @RequestMapping(value = "eme_habs")
 public class Eme_skillService {
-    private final Eme_skillRepository eme_skillRepository;
-    Eme_skillService(Eme_skillRepository eme_skillRepository){
+    private final Eme_SkillRepository eme_skillRepository;
+    Eme_skillService(Eme_SkillRepository eme_skillRepository){
         this.eme_skillRepository = eme_skillRepository;
     }
 
     @RequestMapping(value = "/getAll", method = RequestMethod.GET)
     @ResponseBody
-    public List<Eme_skill> getAllEme_habs() {
+    public List<Emergency_Skill> getAllEme_habs() {
         return eme_skillRepository.getAllEme_habs();
     }
 
@@ -28,26 +30,26 @@ public class Eme_skillService {
 
     @RequestMapping(value = "/getById/{id}", method = RequestMethod.GET)
     @ResponseBody
-    public Eme_skill getEme_skillById(@PathVariable(value = "id") Integer id){
-        return this.eme_skillRepository.getEme_skillById(id);
+    public Emergency_Skill getEme_SkillById(@PathVariable(value = "id") Integer id){
+        return this.eme_skillRepository.getEme_SkillById(id);
     }
 
     @PostMapping("/createEme_hab")
     @ResponseBody
-    public Eme_skill createEmergencia(@RequestBody Eme_skill eme_skill){
-        Eme_skill result = eme_skillRepository.createEme_hab(eme_skill);
+    public Emergency_Skill createEme_Skill(@RequestBody Emergency_Skill eme_skill){
+        Emergency_Skill result = eme_skillRepository.createEme_Skill(eme_skill);
         return result;
     }
 
     @PutMapping("/update/{id}")
     @ResponseBody
-    public void updateEme_skill(@PathVariable(value = "id") int id, Eme_skill eme_skill) {
+    public void updateEme_Skill(@PathVariable(value = "id") int id, Emergency_Skill eme_skill) {
         eme_skillRepository.updateEme_skill(id, eme_skill);
     }
 
     @PutMapping("/delete/{id}")
     @ResponseBody
-    public void deleteEme_skill(@PathVariable(value = "id") int id, Eme_skill eme_skill){
-        eme_skillRepository.deleteEme_skill(id, eme_skill);
+    public void deleteEme_Skill(@PathVariable(value = "id") int id, Emergency_Skill eme_skill){
+        eme_skillRepository.deleteEme_Skill(id, eme_skill);
     }
 }

@@ -1,5 +1,7 @@
 package com.TBDGis.TBDProyecto.services;
 
+import com.TBDGis.TBDProyecto.models.Institution;
+import com.TBDGis.TBDProyecto.repositories.InstitutionRepository;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -16,7 +18,7 @@ public class InstitutionService {
 
     @GetMapping("/getAll")
     public List<Institution> getAllInstitutions() {
-        return institutionRepository.getAllInstitutiones();
+        return institutionRepository.getAllInstituciones();
     }
 
     @RequestMapping(value = "/getById/{id}", method = RequestMethod.GET)
