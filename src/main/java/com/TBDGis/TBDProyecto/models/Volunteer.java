@@ -3,8 +3,6 @@ package com.TBDGis.TBDProyecto.models;
 import org.postgis.PGgeometry;
 import org.json.*;
 
-import java.sql.Date;
-
 public class Volunteer {
 
     // Attributes
