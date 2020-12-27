@@ -1,6 +1,7 @@
 package com.TBDGis.TBDProyecto.models;
 
 import org.postgis.PGgeometry;
+import org.postgis.Point;
 
 import java.sql.Date;
 
