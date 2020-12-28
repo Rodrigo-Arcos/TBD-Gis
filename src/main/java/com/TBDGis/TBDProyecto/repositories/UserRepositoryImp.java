@@ -71,7 +71,7 @@ public class UserRepositoryImp implements UserRepository{
                     .addParameter("mail", user.getMail())
                     .addParameter("phone", user.getPhone())
                     .addParameter("password", user.getPassword())
-                    .addParameter("logintoken", user.getLoginToken())
+                    .addParameter("logintoken", "0")
                     .addParameter("idrol", user.getIdRol())
                     .addParameter("invisible", invisible)
                     .executeUpdate().getKey();
