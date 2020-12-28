@@ -28,7 +28,8 @@ public class EmergencyRepositoryImp implements EmergencyRepository{
     @Override
     public List<Emergency> getAllEmergencies() {
         try(Connection conn = sql2o.open()){
-            return conn.createQuery("select * from emergencia")
+            final String query = "SELECT id, nombre, descrip, finicio, ffin, id_institucion, invisible, st_x(st_astext(location)) AS longitude, st_y(st_astext(location)) AS latitude FROM emergencia";
+            return conn.createQuery(query)
                     .executeAndFetch(Emergency.class);
         } catch (Exception e){
             System.out.println(e.getMessage());
@@ -63,8 +64,15 @@ public class EmergencyRepositoryImp implements EmergencyRepository{
     @Override
     public Emergency createEmergency(Emergency emergencia){
         int id = this.biggestIdEme() + 1;
+
         try(Connection conn = sql2o.open()){
-            conn.createQuery("INSERT INTO emergencia (id,nombre,id_institucion,finicio,ffin,descrip,invisible,longitude,latitude,location) values (:id,:emergenciaNombre,:id_institucion,:finicio,:ffin,:descrip,:invisible,:longitude,:latitude,:location)", true)
+            // Query
+            String query = "INSERT INTO emergencia (id, nombre, id_institucion, finicio, ffin, descrip, invisible, longitude, latitude, location)" +
+                    "VALUES (:id,:emergenciaNombre,:id_institucion,:finicio,:ffin,:descrip,:invisible,:longitude,:latitude, ST_GeomFromText(:point, 4326))";
+
+            String point = "POINT("+ emergencia.getLongitude()+" "+ emergencia.getLatitude()+")";
+            // Execute query
+            conn.createQuery(query, true)
                     .addParameter("id", id)
                     .addParameter("emergenciaNombre", emergencia.getNombre())
                     .addParameter("id_institucion", emergencia.getId_institucion())
@@ -74,7 +82,7 @@ public class EmergencyRepositoryImp implements EmergencyRepository{
                     .addParameter("invisible", emergencia.getInvisible())
                     .addParameter("longitude", emergencia.getLongitude())
                     .addParameter("latitude", emergencia.getLatitude())
-                    .addParameter("location", emergencia.getLocation())
+                    .addParameter("point", point)
                     .executeUpdate().getKey();
             emergencia.setId(id);
             return emergencia;

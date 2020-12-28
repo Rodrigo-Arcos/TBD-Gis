@@ -19,7 +19,8 @@ public class VolunteerRepositoryImp implements VolunteerRepository{
     @Override
     public List<Volunteer> getAllVolunteers(){
         try(Connection conn = sql2o.open()){
-            return conn.createQuery("SELECT * FROM voluntario").executeAndFetch(Volunteer.class);
+            final String query = "SELECT id, nombre, apellido, email, sexo, st_x(st_astext(location)) AS longitude, st_y(st_astext(location)) AS latitude FROM voluntario";
+            return conn.createQuery(query).executeAndFetch(Volunteer.class);
         }catch(Exception e){
             System.out.println(e.getMessage());
             return null;

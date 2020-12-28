@@ -1,10 +1,14 @@
 package com.TBDGis.TBDProyecto.models;
 
+import org.postgis.PGgeometry;
+import org.postgis.Point;
+
 import java.sql.Date;
 import java.sql.Time;
 
 public class Task {
 
+    // Attributes
     private Integer id;
     private Integer id_emergencia;
     private Integer id_estado;
@@ -16,7 +20,11 @@ public class Task {
     private Integer cant_vol_requeridos;
     private Integer invisible;
     private Time hora;
+    private double longitude;
+    private double latitude;
+    private PGgeometry location;
 
+    // Getters and setters
     public Integer getId() {
         return id;
     }
@@ -103,6 +111,30 @@ public class Task {
 
     public void setHora(Time hora) {
         this.hora = hora;
+    }
+
+    public double getLongitude() {
+        return longitude;
+    }
+
+    public void setLongitude(double longitude) {
+        this.longitude = longitude;
+    }
+
+    public double getLatitude() {
+        return latitude;
+    }
+
+    public void setLatitude(double latitude) {
+        this.latitude = latitude;
+    }
+
+    public PGgeometry getLocation() {
+        return location;
+    }
+
+    public void setLocation(PGgeometry location) {
+        this.location = location;
     }
 
     // Additional methods and content

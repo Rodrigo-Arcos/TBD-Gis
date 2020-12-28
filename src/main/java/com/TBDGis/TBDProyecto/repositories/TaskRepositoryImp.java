@@ -20,7 +20,8 @@ public class TaskRepositoryImp implements TaskRepository{
     @Override
     public List<Task> getAllTasks(){
         try(Connection conn = sql2o.open()){
-            return conn.createQuery("SELECT * FROM tarea").executeAndFetch(Task.class);
+            final String query = "SELECT id, id_emergencia, id_estado, nombre, finicio, ffin, descrip, cant_vol_inscritos, cant_vol_requeridos, invisible, hora, st_x(st_astext(location)) AS longitude, st_y(st_astext(location)) AS latitude FROM tarea";
+            return conn.createQuery(query).executeAndFetch(Task.class);
         }catch(Exception e){
             System.out.println(e.getMessage());
             return null;
@@ -59,7 +60,13 @@ public class TaskRepositoryImp implements TaskRepository{
         long now = System.currentTimeMillis();
         Time sqlTime = new Time(now);
         try(Connection conn = sql2o.open()){
-            conn.createQuery("INSERT INTO tarea (id, id_emergencia, id_estado, nombre, finicio, ffin, descrip, cant_vol_inscritos, cant_vol_requeridos, invisible, hora) values(:id, :id_emergencia, :id_estado, :nombre, :finicio, :ffin, :descrip, :cant_vol_inscritos, :cant_vol_requeridos, :invisible, :hora)")
+            // Query
+            String query = "INSERT INTO tarea (id, id_emergencia, id_estado, nombre, finicio, ffin, descrip, cant_vol_inscritos, cant_vol_requeridos, invisible, hora, longitude, latitude, location)" +
+                    "VALUES (:id,:id_emergencia,:id_estado,:nombre,:finicio,:ffin,:descrip,:cant_vol_inscritos,:cant_vol_requeridos,:invisible,:hora,:longitude,:latitude, ST_GeomFromText(:point, 4326))";
+
+            String point = "POINT("+ tarea.getLongitude()+" "+ tarea.getLatitude()+")";
+
+            conn.createQuery(query, true)
                     .addParameter("id", id)
                     .addParameter("id_emergencia", tarea.getId_emergencia())
                     .addParameter("id_estado", tarea.getId_estado())
@@ -71,6 +78,9 @@ public class TaskRepositoryImp implements TaskRepository{
                     .addParameter("cant_vol_requeridos", tarea.getCant_vol_requeridos())
                     .addParameter("invisible", tarea.getInvisible())
                     .addParameter("hora", sqlTime)
+                    .addParameter("longitude", tarea.getLongitude())
+                    .addParameter("latitude", tarea.getLatitude())
+                    .addParameter("point", point)
                     .executeUpdate().getKey();
             tarea.setId(id);
             return tarea;
