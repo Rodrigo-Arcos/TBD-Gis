@@ -65,7 +65,7 @@ public class UserRepositoryImp implements UserRepository{
         int id = this.biggestId() + 1;
         int invisible = 0;
         try(Connection conn = sql2o.open()){
-            conn.createQuery("INSERT INTO users (id, name, mail, phone, password, logintoken , idrol, invisible) VALUES(:id, :name, :mail, :phone, :password, :logintoken , :idrol, :invisible)", true)
+            conn.createQuery("INSERT INTO users (id, name, mail, phone, password, logintoken , idrol, idvol, invisible) VALUES(:id, :name, :mail, :phone, :password, :logintoken , :idrol, :idvol, :invisible)", true)
                     .addParameter("id", id)
                     .addParameter("name", user.getName())
                     .addParameter("mail", user.getMail())
@@ -73,6 +73,7 @@ public class UserRepositoryImp implements UserRepository{
                     .addParameter("password", user.getPassword())
                     .addParameter("logintoken", "0")
                     .addParameter("idrol", user.getIdRol())
+                    .addParameter("idvol", user.getIdVol())
                     .addParameter("invisible", invisible)
                     .executeUpdate().getKey();
             user.setId(id);
@@ -107,7 +108,7 @@ public class UserRepositoryImp implements UserRepository{
 
     @Override
     public void updateUser(int id, User vh){
-        String updateSql = "UPDATE users SET name=:name, mail=:mail, phone=:phone, password=:password, idrol=:idrol, invisible=:invisible WHERE id =:idParam";
+        String updateSql = "UPDATE users SET name=:name, mail=:mail, phone=:phone, password=:password, idrol=:idrol, invisible=:invisible, idvol=:idvol WHERE id =:idParam";
 
         try (Connection con = sql2o.open()) {
             User valorAntiguo = con.createQuery("SELECT * FROM users WHERE id = :idP")
@@ -140,13 +141,18 @@ public class UserRepositoryImp implements UserRepository{
             }else{
                 consulta.addParameter("idrol", valorAntiguo.getIdRol());
             }
+            if(vh.getIdVol() != null){
+                consulta.addParameter("idvol", vh.getIdVol());
+            }else{
+                consulta.addParameter("idvol", valorAntiguo.getIdVol());
+            }
             if(vh.getInvisible() != null){
                 consulta.addParameter("invisible", vh.getInvisible());
             }else{
                 consulta.addParameter("invisible", valorAntiguo.getInvisible());
             }
             consulta.executeUpdate();
-            System.out.println("La tupla Usuario se actualizo correctamente.");
+            System.out.println("El Usuario se actualizo correctamente.");
         }catch(Exception e){
             System.out.println(e.getMessage());
         }
@@ -164,12 +170,13 @@ public class UserRepositoryImp implements UserRepository{
             if(findUser1s.size() == 1){
                 String token = "1";
                 try(Connection con = sql2o.open()){
-                    con.createQuery("UPDATE users SET name=:name, mail=:mail, phone=:phone, password=:password, logintoken=:logintoken , idrol=:idrol WHERE id=:id ", true)
+                    con.createQuery("UPDATE users SET name=:name, mail=:mail, phone=:phone, password=:password, logintoken=:logintoken , idrol=:idrol, idvol=:idvol WHERE id=:id ", true)
                             .addParameter("id", findUser1s.get(0).getId())
                             .addParameter("name", findUser1s.get(0).getName())
                             .addParameter("mail", findUser1s.get(0).getMail())
                             .addParameter("phone", findUser1s.get(0).getPhone())
                             .addParameter("password", findUser1s.get(0).getPassword())
+                            .addParameter("idvol", user.getIdVol())
                             .addParameter("logintoken", token)
                             .addParameter("idrol", findUser1s.get(0).getIdRol())
                             .executeUpdate().getKey();
@@ -209,12 +216,13 @@ public class UserRepositoryImp implements UserRepository{
             if(findUser1s.size() == 1){
                 int token = 0;
                 try(Connection con = sql2o.open()){
-                    con.createQuery("UPDATE users SET name=:name, mail=:mail, phone=:phone, password=:password, logintoken=:logintoken , idrol=:idrol WHERE id=:id ", true)
+                    con.createQuery("UPDATE users SET name=:name, mail=:mail, phone=:phone, password=:password, logintoken=:logintoken , idrol=:idrol, idvol=:idvol WHERE id=:id ", true)
                             .addParameter("id", findUser1s.get(0).getId())
                             .addParameter("name", findUser1s.get(0).getName())
                             .addParameter("mail", findUser1s.get(0).getMail())
                             .addParameter("phone", findUser1s.get(0).getPhone())
                             .addParameter("password", findUser1s.get(0).getPassword())
+                            .addParameter("idvol", user.getIdVol())
                             .addParameter("logintoken", token)
                             .addParameter("idrol", findUser1s.get(0).getIdRol())
                             .executeUpdate().getKey();
