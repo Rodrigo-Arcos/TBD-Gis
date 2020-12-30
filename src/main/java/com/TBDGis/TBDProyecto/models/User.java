@@ -10,15 +10,6 @@ public class User {
     private String password;
     private String loginToken;
     private Integer idRol;
-    private Integer idVol;
-
-    public Integer getIdVol() {
-        return idVol;
-    }
-
-    public void setIdVol(Integer idVol) {
-        this.idVol = idVol;
-    }
 
     private Integer invisible;
 
