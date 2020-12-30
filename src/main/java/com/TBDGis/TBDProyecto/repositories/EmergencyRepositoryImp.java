@@ -154,9 +154,8 @@ public class EmergencyRepositoryImp implements EmergencyRepository{
         }
     }
     @Override
-    public List<Volunteer> getVolunteersByIdEmergency(Integer id_emergency, double radius){
+    public List<Volunteer> getVolunteersByIdEmergency(Integer id_emergency, double rad){
         Emergency actualEmergency = getEmergencyById(id_emergency);
-        double rad = radius/1000;
         try(Connection conn = sql2o.open()){
 
             String query = "SELECT v.id, v.nombre, v.apellido, v.sexo, v.email, v.longitude, v.latitude "
