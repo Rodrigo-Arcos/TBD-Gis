@@ -107,18 +107,18 @@ public class UserRepositoryImp implements UserRepository{
 
     @Override
     public void updateUser(int id, User vh){
-        String updateSql = "UPDATE users SET name=:name, mail=:mail, phone=:phone, password=:password, idrol=:idrol, invisible=:invisible,  WHERE id =:idParam";
+        String updateSql = "update users set mail=:mail, name=:nameU, phone=:phone, password=:password, idrol=:idrol, invisible=:invisible WHERE id = :idParam";
 
         try (Connection con = sql2o.open()) {
-            User valorAntiguo = con.createQuery("SELECT * FROM users WHERE id =:idP")
+            User valorAntiguo = con.createQuery("SELECT * FROM users WHERE id = :idP")
                     .addParameter("idP", id)
                     .executeAndFetchFirst(User.class);
             Query consulta = con.createQuery(updateSql);
             consulta.addParameter("idParam", id);
             if(vh.getName() != null){
-                consulta.addParameter("name", vh.getName());
+                consulta.addParameter("nameU", vh.getName());
             }else{
-                consulta.addParameter("name", valorAntiguo.getName());
+                consulta.addParameter("nameU", valorAntiguo.getName());
             }
             if(vh.getMail() != null){
                 consulta.addParameter("mail", vh.getMail());
