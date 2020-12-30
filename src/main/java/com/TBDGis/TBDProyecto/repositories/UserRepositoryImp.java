@@ -87,9 +87,9 @@ public class UserRepositoryImp implements UserRepository{
 
     @Override
     public void deleteUser(int id, User user) {
-        String deleteSql = "UPDATE users SET invisible=:invisible WHERE id = :idParam";
+        String deleteSql = "UPDATE users SET invisible=:invisible WHERE id =:idParam";
         try (Connection con = sql2o.open()) {
-            User valorAntiguo = con.createQuery("SELECT * FROM users WHERE id = :idPa")
+            User valorAntiguo = con.createQuery("SELECT * FROM users WHERE id =:idPa")
                     .addParameter("idPa", id)
                     .executeAndFetchFirst(User.class);
             Query consulta = con.createQuery(deleteSql);
@@ -111,7 +111,7 @@ public class UserRepositoryImp implements UserRepository{
         String updateSql = "UPDATE users SET name=:name, mail=:mail, phone=:phone, password=:password, idrol=:idrol, invisible=:invisible, idvol=:idvol WHERE id =:idParam";
 
         try (Connection con = sql2o.open()) {
-            User valorAntiguo = con.createQuery("SELECT * FROM users WHERE id = :idP")
+            User valorAntiguo = con.createQuery("SELECT * FROM users WHERE id =:idP")
                     .addParameter("idP", id)
                     .executeAndFetchFirst(User.class);
             Query consulta = con.createQuery(updateSql);
