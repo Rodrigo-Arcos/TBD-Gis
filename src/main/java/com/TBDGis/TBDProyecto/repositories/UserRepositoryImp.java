@@ -2,6 +2,7 @@ package com.TBDGis.TBDProyecto.repositories;
 
 import com.TBDGis.TBDProyecto.models.User;
 import com.TBDGis.TBDProyecto.models.Volunteer_Skill;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.sql2o.Connection;
@@ -104,6 +105,7 @@ public class UserRepositoryImp implements UserRepository{
             System.out.println(e.getMessage());
         }
     }
+
 
     @Override
     public void updateUser(int id, User vh){
