@@ -108,8 +108,8 @@ public class UserRepositoryImp implements UserRepository{
     public User logIn(User user) {
         int visible = 0;
         try(Connection conn = sql2o.open()){
-            List<User> findUser1s = conn.createQuery("select * from users where name=:name and password=:password and invisible=:invisible")
-                    .addParameter("name", user.getName())
+            List<User> findUser1s = conn.createQuery("select * from users where mail=:mail and password=:password and invisible=:invisible")
+                    .addParameter("mail", user.getMail())
                     .addParameter("password", user.getPassword())
                     .addParameter("invisible", visible)
                     .executeAndFetch(User.class);
@@ -130,13 +130,19 @@ public class UserRepositoryImp implements UserRepository{
                     return UserWithoutPass;
                 }catch (Exception e){
                     System.out.println(e.getMessage());
+                    user.setMail("");
+                    user.setPassword("");
                     return user;
                 }
             }else{
+                user.setMail("");
+                user.setPassword("");
                 return user;
             }
         }catch (Exception e){
             System.out.println(e.getMessage());
+            user.setMail("");
+            user.setPassword("");
             return user;
         }
     }
