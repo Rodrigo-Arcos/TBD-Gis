@@ -30,8 +30,8 @@ public class UserService {
 
     @PostMapping("/logIn")
     @ResponseBody
-    public String logIn(@RequestBody User v){
-        String answer= userRepository.logIn(v);
+    public User logIn(@RequestBody User v){
+        User answer= userRepository.logIn(v);
         return answer;
     }
     @PostMapping("/logOut")

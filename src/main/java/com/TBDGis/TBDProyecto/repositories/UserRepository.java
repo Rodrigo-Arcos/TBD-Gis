@@ -10,7 +10,7 @@ public interface UserRepository {
     public User createUser(User user);
     public void deleteUser(int id, User user);
     public User getUserByToken(String token);
-    public String logIn(User user);
+    public User logIn(User user);
     public String logOut(User user);
 
 }

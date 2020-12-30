@@ -105,7 +105,7 @@ public class UserRepositoryImp implements UserRepository{
         }
     }
     @Override
-    public String logIn(User user) {
+    public User logIn(User user) {
         int visible = 0;
         try(Connection conn = sql2o.open()){
             List<User> findUser1s = conn.createQuery("select * from users where name=:name and password=:password and invisible=:invisible")
@@ -114,7 +114,7 @@ public class UserRepositoryImp implements UserRepository{
                     .addParameter("invisible", visible)
                     .executeAndFetch(User.class);
             if(findUser1s.size() == 1){
-                int token = 1;
+                String token = "1";
                 try(Connection con = sql2o.open()){
                     con.createQuery("UPDATE users SET name=:name, mail=:mail, phone=:phone, password=:password, logintoken=:logintoken , idrol=:idrol WHERE id=:id ", true)
                             .addParameter("id", findUser1s.get(0).getId())
@@ -125,17 +125,19 @@ public class UserRepositoryImp implements UserRepository{
                             .addParameter("logintoken", token)
                             .addParameter("idrol", findUser1s.get(0).getIdRol())
                             .executeUpdate().getKey();
-                    return "Login Successfully";
+                    findUser1s.get(0).setPassword("");
+                    User UserWithoutPass = findUser1s.get(0);
+                    return UserWithoutPass;
                 }catch (Exception e){
                     System.out.println(e.getMessage());
-                    return  "Login Fail";
+                    return user;
                 }
             }else{
-                return "Login Fail";
+                return user;
             }
         }catch (Exception e){
             System.out.println(e.getMessage());
-            return "Login Fail";
+            return user;
         }
     }
     @Override
