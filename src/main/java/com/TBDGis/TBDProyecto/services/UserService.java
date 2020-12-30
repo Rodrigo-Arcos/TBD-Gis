@@ -1,5 +1,6 @@
 package com.TBDGis.TBDProyecto.services;
 
+import com.TBDGis.TBDProyecto.models.Emergency;
 import com.TBDGis.TBDProyecto.models.Task_Skill;
 import com.TBDGis.TBDProyecto.models.User;
 import com.TBDGis.TBDProyecto.repositories.UserRepository;
@@ -20,6 +21,12 @@ public class UserService {
     @RequestMapping(value = "/getAll", method = RequestMethod.GET)
     public List<User> getAllUser(){
         return this.userRepository.getAllUser();
+    }
+
+    @RequestMapping(value = "/getById/{id}", method = RequestMethod.GET)
+    @ResponseBody
+    public User getUserById(@PathVariable(value = "id") Integer id){
+        return this.userRepository.getUserById(id);
     }
 
     @PostMapping("/createUser")
