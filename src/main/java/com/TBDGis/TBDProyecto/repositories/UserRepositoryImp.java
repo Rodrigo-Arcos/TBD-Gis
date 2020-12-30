@@ -65,7 +65,7 @@ public class UserRepositoryImp implements UserRepository{
         int id = this.biggestId() + 1;
         int invisible = 0;
         try(Connection conn = sql2o.open()){
-            conn.createQuery("INSERT INTO users (id, name, mail, phone, password, logintoken , idrol, invisible) VALUES(:id, :name, :mail, :phone, :password, :logintoken , :idrol, :invisible)", true)
+            conn.createQuery("INSERT INTO users (id, name, mail, phone, password, logintoken , idrol, idvol, invisible) VALUES(:id, :name, :mail, :phone, :password, :logintoken , :idrol, :idvol, :invisible)", true)
                     .addParameter("id", id)
                     .addParameter("name", user.getName())
                     .addParameter("mail", user.getMail())
@@ -73,6 +73,7 @@ public class UserRepositoryImp implements UserRepository{
                     .addParameter("password", user.getPassword())
                     .addParameter("logintoken", "0")
                     .addParameter("idrol", user.getIdRol())
+                    .addParameter("idvol", user.getIdVol())
                     .addParameter("invisible", invisible)
                     .executeUpdate().getKey();
             user.setId(id);
@@ -86,9 +87,9 @@ public class UserRepositoryImp implements UserRepository{
 
     @Override
     public void deleteUser(int id, User user) {
-        String deleteSql = "UPDATE users SET invisible=:invisible WHERE id = :idParam";
+        String deleteSql = "UPDATE users SET invisible=:invisible WHERE id =:idParam";
         try (Connection con = sql2o.open()) {
-            User valorAntiguo = con.createQuery("SELECT * FROM users WHERE id = :idPa")
+            User valorAntiguo = con.createQuery("SELECT * FROM users WHERE id =:idPa")
                     .addParameter("idPa", id)
                     .executeAndFetchFirst(User.class);
             Query consulta = con.createQuery(deleteSql);
@@ -104,6 +105,59 @@ public class UserRepositoryImp implements UserRepository{
             System.out.println(e.getMessage());
         }
     }
+
+    @Override
+    public void updateUser(int id, User vh){
+        String updateSql = "UPDATE users SET name=:name, mail=:mail, phone=:phone, password=:password, idrol=:idrol, invisible=:invisible, idvol=:idvol WHERE id =:idParam";
+
+        try (Connection con = sql2o.open()) {
+            User valorAntiguo = con.createQuery("SELECT * FROM users WHERE id =:idP")
+                    .addParameter("idP", id)
+                    .executeAndFetchFirst(User.class);
+            Query consulta = con.createQuery(updateSql);
+            consulta.addParameter("idParam", id);
+            if(vh.getName() != null){
+                consulta.addParameter("name", vh.getName());
+            }else{
+                consulta.addParameter("name", valorAntiguo.getName());
+            }
+            if(vh.getMail() != null){
+                consulta.addParameter("mail", vh.getMail());
+            }else{
+                consulta.addParameter("mail", valorAntiguo.getMail());
+            }
+            if(vh.getPhone() != null){
+                consulta.addParameter("phone", vh.getPhone());
+            }else{
+                consulta.addParameter("phone", valorAntiguo.getPhone());
+            }
+            if(vh.getPassword() != null){
+                consulta.addParameter("password", vh.getPassword());
+            }else{
+                consulta.addParameter("password", valorAntiguo.getPassword());
+            }
+            if(vh.getIdRol() != null){
+                consulta.addParameter("idrol", vh.getIdRol());
+            }else{
+                consulta.addParameter("idrol", valorAntiguo.getIdRol());
+            }
+            if(vh.getIdVol() != null){
+                consulta.addParameter("idvol", vh.getIdVol());
+            }else{
+                consulta.addParameter("idvol", valorAntiguo.getIdVol());
+            }
+            if(vh.getInvisible() != null){
+                consulta.addParameter("invisible", vh.getInvisible());
+            }else{
+                consulta.addParameter("invisible", valorAntiguo.getInvisible());
+            }
+            consulta.executeUpdate();
+            System.out.println("El Usuario se actualizo correctamente.");
+        }catch(Exception e){
+            System.out.println(e.getMessage());
+        }
+    }
+
     @Override
     public User logIn(User user) {
         int visible = 0;
@@ -116,12 +170,13 @@ public class UserRepositoryImp implements UserRepository{
             if(findUser1s.size() == 1){
                 String token = "1";
                 try(Connection con = sql2o.open()){
-                    con.createQuery("UPDATE users SET name=:name, mail=:mail, phone=:phone, password=:password, logintoken=:logintoken , idrol=:idrol WHERE id=:id ", true)
+                    con.createQuery("UPDATE users SET name=:name, mail=:mail, phone=:phone, password=:password, logintoken=:logintoken , idrol=:idrol, idvol=:idvol WHERE id=:id ", true)
                             .addParameter("id", findUser1s.get(0).getId())
                             .addParameter("name", findUser1s.get(0).getName())
                             .addParameter("mail", findUser1s.get(0).getMail())
                             .addParameter("phone", findUser1s.get(0).getPhone())
                             .addParameter("password", findUser1s.get(0).getPassword())
+                            .addParameter("idvol", user.getIdVol())
                             .addParameter("logintoken", token)
                             .addParameter("idrol", findUser1s.get(0).getIdRol())
                             .executeUpdate().getKey();
@@ -161,12 +216,13 @@ public class UserRepositoryImp implements UserRepository{
             if(findUser1s.size() == 1){
                 int token = 0;
                 try(Connection con = sql2o.open()){
-                    con.createQuery("UPDATE users SET name=:name, mail=:mail, phone=:phone, password=:password, logintoken=:logintoken , idrol=:idrol WHERE id=:id ", true)
+                    con.createQuery("UPDATE users SET name=:name, mail=:mail, phone=:phone, password=:password, logintoken=:logintoken , idrol=:idrol, idvol=:idvol WHERE id=:id ", true)
                             .addParameter("id", findUser1s.get(0).getId())
                             .addParameter("name", findUser1s.get(0).getName())
                             .addParameter("mail", findUser1s.get(0).getMail())
                             .addParameter("phone", findUser1s.get(0).getPhone())
                             .addParameter("password", findUser1s.get(0).getPassword())
+                            .addParameter("idvol", user.getIdVol())
                             .addParameter("logintoken", token)
                             .addParameter("idrol", findUser1s.get(0).getIdRol())
                             .executeUpdate().getKey();

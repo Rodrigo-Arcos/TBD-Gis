@@ -11,6 +11,7 @@ public interface UserRepository {
     public void deleteUser(int id, User user);
     public User getUserByToken(String token);
     public User logIn(User user);
+    public void updateUser(int id, User vh);
     public String logOut(User user);
 
 }

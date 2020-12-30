@@ -1,6 +1,7 @@
 package com.TBDGis.TBDProyecto.services;
 
 import com.TBDGis.TBDProyecto.models.Emergency;
+import com.TBDGis.TBDProyecto.models.Task_Skill;
 import com.TBDGis.TBDProyecto.models.User;
 import com.TBDGis.TBDProyecto.repositories.UserRepository;
 import org.springframework.web.bind.annotation.*;
@@ -33,6 +34,12 @@ public class UserService {
     public User createUser(@RequestBody User v){
         User newUSer = userRepository.createUser(v);
         return newUSer;
+    }
+
+    @PutMapping("/update/{id}")
+    @ResponseBody
+    public void updateUser(@PathVariable(value = "id") int id, User user){
+        userRepository.updateUser(id, user);
     }
 
     @PostMapping("/logIn")
