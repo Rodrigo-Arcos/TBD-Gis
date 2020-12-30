@@ -132,17 +132,20 @@ public class UserRepositoryImp implements UserRepository{
                     System.out.println(e.getMessage());
                     user.setMail("");
                     user.setPassword("");
+                    user.setIdRol(-1);
                     return user;
                 }
             }else{
                 user.setMail("");
                 user.setPassword("");
+                user.setIdRol(-1);
                 return user;
             }
         }catch (Exception e){
             System.out.println(e.getMessage());
             user.setMail("");
             user.setPassword("");
+            user.setIdRol(-1);
             return user;
         }
     }
