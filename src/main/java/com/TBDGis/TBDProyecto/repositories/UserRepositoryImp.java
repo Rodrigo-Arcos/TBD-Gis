@@ -104,6 +104,54 @@ public class UserRepositoryImp implements UserRepository{
             System.out.println(e.getMessage());
         }
     }
+
+    @Override
+    public void updateUser(int id, User vh){
+        String updateSql = "UPDATE users SET name=:name, mail=:mail, phone=:phone, password=:password, idrol=:idrol, invisible=:invisible WHERE id =:idParam";
+
+        try (Connection con = sql2o.open()) {
+            User valorAntiguo = con.createQuery("SELECT * FROM users WHERE id = :idP")
+                    .addParameter("idP", id)
+                    .executeAndFetchFirst(User.class);
+            Query consulta = con.createQuery(updateSql);
+            consulta.addParameter("idParam", id);
+            if(vh.getName() != null){
+                consulta.addParameter("name", vh.getName());
+            }else{
+                consulta.addParameter("name", valorAntiguo.getName());
+            }
+            if(vh.getMail() != null){
+                consulta.addParameter("mail", vh.getMail());
+            }else{
+                consulta.addParameter("mail", valorAntiguo.getMail());
+            }
+            if(vh.getPhone() != null){
+                consulta.addParameter("phone", vh.getPhone());
+            }else{
+                consulta.addParameter("phone", valorAntiguo.getPhone());
+            }
+            if(vh.getPassword() != null){
+                consulta.addParameter("password", vh.getPassword());
+            }else{
+                consulta.addParameter("password", valorAntiguo.getPassword());
+            }
+            if(vh.getIdRol() != null){
+                consulta.addParameter("idrol", vh.getIdRol());
+            }else{
+                consulta.addParameter("idrol", valorAntiguo.getIdRol());
+            }
+            if(vh.getInvisible() != null){
+                consulta.addParameter("invisible", vh.getInvisible());
+            }else{
+                consulta.addParameter("invisible", valorAntiguo.getInvisible());
+            }
+            consulta.executeUpdate();
+            System.out.println("La tupla Usuario se actualizo correctamente.");
+        }catch(Exception e){
+            System.out.println(e.getMessage());
+        }
+    }
+
     @Override
     public User logIn(User user) {
         int visible = 0;
